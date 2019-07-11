@@ -1,6 +1,7 @@
 # AERMOD_Framework
-This framework is designed to help people who are doing many simulations to simply set
-parameters to write the inputs, run, and process the outputs of AERMOD. 
+This framework is designed to help people who are doing air quality analysis 
+simulations to simply set parameters to write the inputs, run, and process 
+the outputs of AERMOD. 
 
 OPERATING SYSTEM: Windows (versions of AERPLOT and AERMOD needed for other OS)
 
