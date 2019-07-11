@@ -4,7 +4,7 @@ parameters to write the inputs, run, and process the outputs of AERMOD.
 
 OPERATING SYSTEM: Windows (versions of AERPLOT and AERMOD needed for other OS)
 
-PYTHON VERSION: Python 3.x
+PYTHON VERSION: Python 3.x (works with 2.7 as of initial commit)
 
 DEPENDENCIES: openpyxl
 
