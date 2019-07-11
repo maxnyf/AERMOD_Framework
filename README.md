@@ -5,7 +5,7 @@ the outputs of AERMOD.
 
 OPERATING SYSTEM: Windows (versions of AERPLOT and AERMOD needed for other OS)
 
-PYTHON VERSION: Python 3.x (works with 2.7 as of initial commit)
+PYTHON VERSION: Python 3.x (should work with 2.7 also)
 
 DEPENDENCIES: openpyxl
 
