@@ -48,7 +48,10 @@ def run_aermod_framework(surface_observations_file,
 
     # ********* INPUT CHECKS **************
     number_sources = len(source_coordinate_list_x)
-    number_receptors = len(receptor_coordinate_list_x)
+    if receptor_style == 'discrete':
+        number_receptors = len(receptor_coordinate_list_x)
+    else:
+        number_receptors = receptor_grid_number_receptors_x * receptor_grid_number_receptors_y
 
     # running the check_source_data_for_length on parameters
     #   if there is only one data point, copies to correct number of source points
@@ -78,7 +81,8 @@ def run_aermod_framework(surface_observations_file,
                                                  source_point_stack_gas_exit_velocity_list,
                                                  source_point_stack_inside_diameter_list,
                                                  receptor_coordinate_list_y,
-                                                 receptor_coordinate_list_x
+                                                 receptor_coordinate_list_x,
+                                                 receptor_style
                                                  )
 
     # exits the program if there is any problems in the inputs

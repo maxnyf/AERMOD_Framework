@@ -230,7 +230,8 @@ def check_for_valid_inputs(source_x_points,
                            source_point_stack_gas_exit_velocity_list,
                            source_point_stack_inside_diameter_list,
                            receptor_coordinate_list_y,
-                           receptor_coordinate_list_x
+                           receptor_coordinate_list_x,
+                           receptor_style
                            ):
 
     number_errors = 0
@@ -277,10 +278,10 @@ def check_for_valid_inputs(source_x_points,
         if type(source_point_stack_inside_diameter_list) == str or source_point_stack_inside_diameter_list is None:
             number_errors += 1
             print("source_point_stack_inside_diameter_list inputted incorrectly")
-
-    if len(receptor_coordinate_list_y) != len(receptor_coordinate_list_x):
-        number_errors += 1
-        print("number of receptor y coordinates does not equal number of receptor x coordinates")
+    if receptor_style == 'discrete':
+        if len(receptor_coordinate_list_y) != len(receptor_coordinate_list_x):
+            number_errors += 1
+            print("number of receptor y coordinates does not equal number of receptor x coordinates")
 
     # Returns false if there are any errors, otherwise true
     if number_errors > 0:
