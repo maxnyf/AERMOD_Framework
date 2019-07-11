@@ -13,3 +13,6 @@ The requirements to run this framework is that you need to have meteorological d
 already processed by AERMET. Once you have processed AERMET data, this framework is
 fully ready to be used. AERMAP isn't required to run this framework, but the program
 can accept AERMAP data and use it in AERMOD runs if specified.
+
+run_framework.py contains in depth detail about the parameters used to run the framework,
+and should be used as a reference for how the framework works
