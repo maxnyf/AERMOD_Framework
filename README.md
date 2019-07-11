@@ -4,7 +4,9 @@ This framework will write the input file, run AERMOD, and process the outputs in
 an excel spreadsheet or into a contour plot using AERPLOT.
 
 OPERATING SYSTEM: Windows (versions of AERPLOT and AERMOD needed for other OS)
+
 PYTHON VERSION: Python 3.x
+
 DEPENDENCIES: openpyxl
 
 The requirements to run this framework is that you need to have meteorological data
