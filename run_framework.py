@@ -1,9 +1,29 @@
 from mainframe import run_aermod_framework
 __author__ = 'Max'
 
+# run_framework.py is the interface for the framework, and calls the run_framework function that runs mainframe
+# mainframe.py is the framework, it checks inputs, writes the input files, runs AERMOD and processes the outputs
+# input_script_functions contains all functions to write AERMOD/AERPLOT input files and check inputs
+# output_processing_functions contains all functions to process AERMOD output files
+#   more details about output processing are presented below, refer to the receptor_style and run_aerplot variables
+
+# the overview of the framework is easily allowing one to add emission sources in discrete locations and assigning
+#   them emission rates, which AERMOD will use to predict concentrations at locations also specified by the user. This
+#   framework also processes the output data, currently set to hourly averages for a year of data, into a spreadsheet
+#   to easily be used to create graphs, analyze maxima or anything else. The output spreadsheet is currently configured
+#   to neatly display the time information and yearly average information. If wanted, one can easily go into excel and
+#   delete all the columns that don't contain emission concentration data.
+# concentration data that aermod produces is in the form *****micrograms per meter cubed******
+
 # meteorological data comes from AERMET processor
+# AERMET will be needed to obtain meteorological data used for AERMOD
+# processing meteorological data with AERMET is the *only* requirement to run this framework
 # AERMOD is currently set to calculate all 1-hour concentration averages for a given year of meteorological data
 # To change this, go to the writing control and output lines functions in input_script_functions.py
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@ INPUT OPTIONS @@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # Name of the surface observations file
 # Mandatory, file type: SFC
