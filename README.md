@@ -23,8 +23,8 @@ to run as is. Open up the file and read the README in there for more information
 
 
 Authors:
-Max Nyffenegger
-Matthew Alongi
+Max Nyffenegger,
+Matthew Alongi,
 Joseph Kasprzyk
 
 AERMOD, AERPLOT files come from the U.S. Environmental Protection Agency and are publicly 
