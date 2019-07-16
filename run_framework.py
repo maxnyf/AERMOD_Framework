@@ -168,6 +168,7 @@ source_aermap_output_file_name = None,
 # all you need is information about the location of the area of interest
 
 # for running aerplot, set run_aerplot to 'yes' or 'no'
+# *** aerplot needs more than one receptor or it will throw an error
 run_aerplot = 'no'
 
 # the northing and easting **UTM** coordinates of the location of interest
