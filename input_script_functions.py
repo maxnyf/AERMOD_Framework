@@ -365,7 +365,6 @@ def write_aerplot_input_file(easting, northing, utm_zone, northern_hemisphere, g
     # Number of columns and rows is generally good at 400 but may need to be increased for particularly large domains
     input_file.write('numberOfGridCols                    = 400\n')
     input_file.write('numberOfGridRows                    = 400\n\n')
-    input_file.write('; See contour_plot_functions.py for more detailed explanation of variables')
     input_file.close()
 
 
