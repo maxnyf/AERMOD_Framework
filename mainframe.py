@@ -42,8 +42,7 @@ def run_aermod_framework(surface_observations_file,
                          aerplot_northern_hemisphere=None
                          ):
 
-
-    # Simple setup to see time it took for program to run
+    # setup see time it took for program to run
     start_time = time()
 
     # ********* INPUT CHECKS **************
@@ -140,24 +139,27 @@ def run_aermod_framework(surface_observations_file,
         system("aerplot.exe >nul")
 
     # ***** PROCESSING OUTPUTS *****
-    # @@@@@@@@ only processes outputs if in discrete receptor type @@@@@@@@@@@
+    # setting up spreadsheet and output file data
+    output_file_name = 'aermod.out'
+    output_workbook = Workbook()
+    output_spreadsheet = output_workbook.active
+    output_spreadsheet.title = "Data"
     if receptor_style == 'discrete':
-        # setting up spreadsheet and output file data
-        output_file_name = 'aermod.out'
-        output_workbook = Workbook()
-        output_spreadsheet = output_workbook.active
-        output_spreadsheet.title = "Data"
-
         # setting up spreadsheet headers
-        spreadsheet_setup(number_receptors,output_spreadsheet, receptor_coordinate_list_x, receptor_coordinate_list_y)
+        spreadsheet_setup_discrete(number_receptors,output_spreadsheet, receptor_coordinate_list_x,
+                                   receptor_coordinate_list_y)
 
         # setting up list of times that the concentration was analyzed at
         find_time_lines(output_file_name, output_spreadsheet)
 
         # adding concentrations from all receptors to excel spreadsheet
-        find_concentration_lines(output_file_name, number_receptors, output_spreadsheet)
+        find_concentration_lines_discrete(output_file_name, number_receptors, output_spreadsheet)
 
-        # Saving workbook to excel file and printing runtime of program
-        output_workbook.save("AERMOD concentration outputs.xlsx")
+    elif receptor_style == 'grid':
+        # just runs script to find annual averages at each receptor in grid
+        find_grid_concentration_average(output_spreadsheet, output_file_name)
+
+    # Saving workbook to excel file and printing runtime of program
+    output_workbook.save("AERMOD concentration outputs.xlsx")
     run_time = time() - start_time
     print("Program runtime: " + str(int(run_time / 60)) + " minutes " + str(int(run_time % 60)) + " seconds")

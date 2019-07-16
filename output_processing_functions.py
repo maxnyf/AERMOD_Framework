@@ -36,7 +36,7 @@ def find_time_data_from_line(line):
 # inputs
 # worksheet: openpyxl Workbook spread sheet *that has already been opened* (workbook.active)
 # receptor information for formatting
-def spreadsheet_setup(number_receptors, worksheet, receptor_x_list, receptor_y_list):
+def spreadsheet_setup_discrete(number_receptors, worksheet, receptor_x_list, receptor_y_list):
     # setting up time headers
     worksheet.cell(row=1, column=1, value='Hour')
     worksheet.cell(row=1, column=2, value='Day')
@@ -84,10 +84,12 @@ def find_time_lines(output_file_name, output_spreadsheet):
             output_spreadsheet.cell(row=curr_row, column=2).value = int(time_data[1])
             output_spreadsheet.cell(row=curr_row, column=3).value = int(time_data[2])
             curr_row += 1
+    output_file.close()
 
 
 # this function adds concentrations and their coordinates to the spreadsheet
 # takes in single emission point data
+# spreadsheet: openpyxl Workbook spread sheet *that has already been opened* (workbook.active)
 def add_concentration_to_spreadsheet(emission_data, current_row, receptor_number, spreadsheet):
     # formatting is setup for excel spreadsheet with time information in first 3 columns
     #   remove the '3 + ' to just have emissions data in the final spreadsheet
@@ -96,7 +98,7 @@ def add_concentration_to_spreadsheet(emission_data, current_row, receptor_number
 
 
 # this function removes the last values from the spreadsheet since they are averages and not calculated data
-def format_average_values(output_spreadsheet, number_receptors):
+def format_average_values_discrete(output_spreadsheet, number_receptors):
     # loops through receptor columns to find last data point
     current_column = 3
     max_row = output_spreadsheet.max_row
@@ -109,7 +111,7 @@ def format_average_values(output_spreadsheet, number_receptors):
         current_average = output_spreadsheet.cell(row=max_row, column=current_column).value
         output_spreadsheet.cell(row=3, column=average_column).value = current_average
 
-        #adding averages including zeros calculated by excel
+        # adding averages including zeros calculated by excel
         column_identifier = get_column_letter(current_column) + ":" + get_column_letter(current_column)
         output_spreadsheet.cell(row=6, column=average_column).value = "=AVERAGE("+column_identifier+")"
 
@@ -119,14 +121,18 @@ def format_average_values(output_spreadsheet, number_receptors):
 
 # this function finds all concentrations at all receptors that AERMOD calculated
 # inputs
-# output_file: the aermod output file name
+# output_file_name: the aermod output file name
 # number_receptors: the number of receptors specified for formatting excel spreadsheet
 # output_spreadsheet: openpyxl Workbook spread sheet *that has already been opened* (workbook.active)
-def find_concentration_lines(output_file_name, number_receptors, output_spreadsheet):
+def find_concentration_lines_discrete(output_file_name, number_receptors, output_spreadsheet):
     output_file = open(output_file_name, 'r')
-    number_data_lines_to_read = ceil(number_receptors / 2.0)
+    number_data_lines_to_read = int(ceil(number_receptors / 2.0))
     current_row = 1
-    for line in output_file:
+    # uses while loop since you cant readline() if iterating lines in a for loop in python 2.7
+    while True:
+        line = output_file.readline()
+        if not line:
+            break
         current_line_stripped = line.strip()
         current_line_split = current_line_stripped.split(' ')
 
@@ -165,4 +171,82 @@ def find_concentration_lines(output_file_name, number_receptors, output_spreadsh
     # deleting last row of data since it is averages computed by AERMOD
     # saves data and places near top
     # adds excel calculations that calculate concentration averages including 0
-    format_average_values(output_spreadsheet, number_receptors)
+    format_average_values_discrete(output_spreadsheet, number_receptors)
+    output_file.close()
+
+
+# this function finds the average concentration values for a grid receptor system
+# output_spreadsheet: openpyxl Workbook spread sheet *that has already been opened* (workbook.active)
+def find_grid_concentration_average(output_spreadsheet, output_file_name):
+    output_file = open(output_file_name, 'r')
+    # variables to keep track of location in spreadsheet
+    code_end = False
+    current_column_header = 1
+    current_column = 1
+    column_start_index = 0
+
+    # uses while loop since you cant readline() if iterating lines in a for loop in python 2.7
+    while True:
+        line = output_file.readline()
+        # breaks at the end
+        if not line:
+            break
+        # processing line
+        line_stripped = line.strip()
+        line_split = line_stripped.split(' ')
+        # removing blank entries
+        line_split = list(word for word in line_split if word != '')
+        # checks to see if at the end of the aermod output file to get annual concentration data
+        if len(line_split) > 5:
+            if line_split[0] == '***' and line_split[1] == 'THE' and line_split[2] == 'ANNUAL':
+                # marking that the code has parsed to the last entry
+                code_end = True
+
+        # checking if x coordinate header line
+        if len(line_split) > 0 and code_end and line_split[0] == "(METERS)":
+            # removing non data in line split list
+            line_split = line_split[2:]
+
+            for column in line_split:
+                # adding to the column count for spreadsheet formatting
+                # this for loop adds the headers of the receptor locations
+                current_column_header += 1
+                output_spreadsheet.cell(row=1, column=current_column_header).value = float(column)
+
+            # parsing down two lines to get to concentration data
+            output_file.readline()
+            output_file.readline()
+            current_row = 1
+
+            # parsing all y - coord values (rows)
+            while True:
+                current_row += 1
+                line = output_file.readline()
+                line_stripped = line.strip()
+                line_split = line_stripped.split(' ')
+                # removing the '|' from data table
+                del line_split[1]
+                # gets rid of the y - coord value from list if there is already one there
+                if column_start_index > 0:
+                    del line_split[0]
+                # removing blank entries
+                line_split = list(word for word in line_split if word != '')
+                # checks if current line contains concentration data
+                try:
+                    line_split = [float(num) for num in line_split]
+                    # resets column if there is more data to read
+                    current_column = column_start_index
+                except ValueError:
+                    # once a set of data has been processed, sets index to current column so data keeps
+                    #   being put to the right in the correct order
+                    if current_column > 0:
+                        column_start_index = current_column
+                    break
+
+                for column in line_split:
+                    # adding data to spreadsheet from table
+                    current_column += 1
+                    output_spreadsheet.cell(row=current_row, column=current_column).value = column
+
+    output_file.close()
+
