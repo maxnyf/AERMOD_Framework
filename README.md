@@ -18,8 +18,8 @@ run_framework.py contains in depth detail about the parameters used to run the f
 and should be used as a reference for how the framework works and for more information
 about the outputs.
 
-Denver_Airport_example contains a fully running example of the framework that is ready 
-to run as is. There is more information in the README in the Denver_Airport_example 
+Denver_Airport_Example contains a fully running example of the framework that is ready 
+to run as is. There is more information in the README in the Denver_Airport_Example 
 folder.
 
 Authors:
