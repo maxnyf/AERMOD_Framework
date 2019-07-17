@@ -8,6 +8,15 @@ from mainframe import run_aermod_framework
 # from time import time
 __author__ = 'Max'
 
+# DENVER INTERNATIONAL AIRPORT EXAMPLE PROGRAM
+# The meteorological data in this script comes from the Denver Airport weather station
+# There is currently a grid system setup to show functionality of aerplot plotting.
+
+# @@@ RANDOM SOURCE COORDINATE AND EMISSION MAKER @@@
+# to activate this section of code, uncomment lines 3-8 and lines 209-235
+# this randomly creates source emittors in a circular radius around the origin, with a specified emission range
+# parameters for setting up this section start at line 209
+
 # run_framework.py is the interface for the framework, and calls the run_framework function that runs mainframe
 # mainframe.py is the framework, it checks inputs, writes the input files, runs AERMOD and processes the outputs
 # input_script_functions contains all functions to write AERMOD/AERPLOT input files and check inputs
@@ -197,10 +206,15 @@ aerplot_northern_hemisphere = 'True'
 ####################################################################################
 ####### RANDOMLY ASSIGNING SOURCE COORDINATES AND EMISSION RATES EXAMPLES ##########
 ####################################################################################
+# # @@@@@@@@@@@@@ UNCOMMENT THE SECTION STARTING HERE @@@@@@@@@@@@@@@@@@@@@@@@@@@
 # # parameters
 # # assigns coordinates in a circle around the origin with radius of maximum_range
-# number_sources = 10
+# # @@@ PARAMETERS LIST @@@
+# # the total number of emittor sources 
+# number_sources = 10  # enter integer
+# # the radius around the origin that sources will appear in
 # maximum_range = 5280 * .3048  # a mile in meters
+# # the range of emissions that will be randomly assigned to each source
 # source_emission_rate_range = [.1, 1.3]  # entered as [lower bound, upper bound]
 #
 # # setup - clearing previous source coordinates and emission entries
@@ -219,6 +233,8 @@ aerplot_northern_hemisphere = 'True'
 #     # randomly assigning emission rates in specified range
 #     emission_rate_val_temp = emission_rate_range * random() + source_emission_rate_range[0]
 #     source_emission_rate_list.append(emission_rate_val_temp)
+
+# # @@@@@@@@@@@@@@ STOP UNCOMMENTING HERE @@@@@@@@@@@@@@@@@@@
 #
 # # print(source_coordinate_list_x)
 # # print(source_coordinate_list_y)
