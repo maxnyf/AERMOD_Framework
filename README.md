@@ -21,11 +21,12 @@ about the outputs
 denver_airport_example contains a fully running example of the framework that is ready 
 to run as is. Open up the file and read the README in there for more information
 
-
 Authors:
 Max Nyffenegger,
 Matthew Alongi,
 Joseph Kasprzyk
 
-AERMOD, AERPLOT files come from the U.S. Environmental Protection Agency and are publicly 
-available through their website as well
+AERMOD.exe version: 18081
+AERPLOT.exe version: 13329
+AERMOD and AERPLOT are published by the U.S. Environmental Protection Agency and are publicly
+available to download on their website (epa.gov)
