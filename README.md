@@ -26,7 +26,9 @@ Max Nyffenegger,
 Matthew Alongi,
 Joseph Kasprzyk
 
-AERMOD.exe version: 18081\n
-AERPLOT.exe version: 13329\n
+AERMOD.exe version: 18081
+
+AERPLOT.exe version: 13329
+
 AERMOD and AERPLOT are published by the U.S. Environmental Protection Agency and are publicly
 available to download on their website (epa.gov)
