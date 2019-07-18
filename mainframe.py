@@ -141,6 +141,7 @@ def run_aermod_framework(surface_observations_file,
     # ***** PROCESSING OUTPUTS *****
     # setting up spreadsheet and output file data
     output_file_name = 'aermod.out'
+    spreadsheet_name = "AERMOD concentration outputs.xlsx"
     output_workbook = Workbook()
     output_spreadsheet = output_workbook.active
     output_spreadsheet.title = "Data"
@@ -160,6 +161,6 @@ def run_aermod_framework(surface_observations_file,
         find_grid_concentration_average(output_spreadsheet, output_file_name)
 
     # Saving workbook to excel file and printing runtime of program
-    output_workbook.save("AERMOD concentration outputs.xlsx")
+    output_workbook.save(spreadsheet_name)
     run_time = time() - start_time
     print("Program runtime: " + str(int(run_time / 60)) + " minutes " + str(int(run_time % 60)) + " seconds")
