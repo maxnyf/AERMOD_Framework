@@ -5,7 +5,9 @@ script itself, but in general you need to import the function from the script
 in mainframe.py and then add a function call to the script's function at the
 bottom of mainframe.py's run_aermod_framework() function. 
 
-map_plotting.py
+map_plotting.py:
+
+DEPENDENCIES: openpyxl, matplotlib, numpy
 
 map_plotting creates a heatmap of AERMOD concentration data from the Excel 
 spreadsheet that this framework creates. There are instructions on how to 
