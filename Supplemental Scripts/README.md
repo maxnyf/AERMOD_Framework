@@ -12,6 +12,6 @@ spreadsheet that this framework creates. There are instructions on how to
 run the script in map_plotting.py
 
 Some code in this script comes from matplotlib website, which I am not claiming is mine.
-You can view the code at the link below, or view the forked files on Github
-Title: Creating annotated heatmaps
+You can view the code at the link below, or view the forked files on Github.
+Title: Creating annotated heatmaps,
 Availability: https://matplotlib.org/3.1.1/gallery/images_contours_and_fields/image_annotated_heatmap.html#sphx-glr-gallery-images-contours-and-fields-image-annotated-heatmap-py
